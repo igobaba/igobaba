@@ -87,3 +87,44 @@
     cursor: pointer;
     user-select: none;
 }
+.wrap {
+    height: 100vh;
+    /*background-color: #01579b;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrap .sign-up {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column; /*수직 정렬*/
+    align-items: center;
+    justify-content: center;
+
+    width: 450px;
+    background-color: orange;
+    padding: 30px 10px;
+    box-sizing: border-box;
+}
+
+.wrap .sign-up > h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.wrap .sign-up > input {
+    margin-bottom: 20px;
+    width: 200px;
+    height: 40px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.wrap .sign-up button {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
