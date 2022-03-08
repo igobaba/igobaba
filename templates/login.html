@@ -1,62 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" color-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>로그인 페이지</title>
-    <link rel="stylesheet" href="/static/css/index.css" type="text/css">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+    <title>이고바바 로그인</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Poor+Story&display=swap" rel="stylesheet">
 
+    <!--    CSS -->
+    <link rel="stylesheet" href="/static/css/index.css">
+    <!--    Jquery -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <!--   Script-->
+    <script src="/static/js/user.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
     <script>
-        function tosignup() {
-            window.location.href = 'signup.html'
-        }
-        function sign_in() {
-            let username = $("#input-username").val()
-            let password = $("#input-password").val()
 
-            if (username == "") {
-                $("#help-id-login").text("아이디를 입력해주세요.")
-                $("#input-username").focus()
-                return;
-            } else {
-                $("#help-id-login").text("")
-            }
-
-            if (password == "") {
-                $("#help-password-login").text("비밀번호를 입력해주세요.")
-                $("#input-password").focus()
-                return;
-            } else {
-                $("#help-password-login").text("")
-            }
-            $.ajax({
-                type: "POST",
-                url: "/sign_in",
-                data: {
-                    username_give: username,
-                    password_give: password
-                },
-                success: function (response) {
-                    if (response['result'] == 'success') {
-                        $.cookie('mytoken', response['token'], {path: '/'});
-                        window.location.replace("/")
-                    } else {
-                        alert(response['msg'])
-                    }
-                }
-            });
-        }
     </script>
 </head>
 <body>
-    <div class="container">
-        <div class="login-box" style="max-width: 480px;margin:auto">
-            <div class="id-box"></div>
-            <input id="input-username" type=text" class="input" placeholder="아이디">
-            <p id="help-id-login"></p>
-            <input id="input-password" class="input" placeholder="비밀번호">
-            <p id="help-password-login"></p>
-            <button type="submit" value="로그인" class="submit-btn" onclick="sign_in()">로그인</button>
-            <button type="submit" value="회원가입" class="signup-btn" onclick="tosignup()">회원가입</button>
+    <div class="main-container flex-column-center" >
+        <div class="login-box">
+            <div class="content">
+                <div class="id-box">
+                    <label for="userId">아이디</label>
+                    <input id="userId" type=text" class="input" placeholder="아이디">
+                </div>
+                    <p id="help-id-login"></p>
+                <div class="pw-box">
+                    <label for="userPw">비밀번호</label>
+                    <input id="userPw" class="input" placeholder="비밀번호">
+                </div>
+                    <p id="help-password-login"></p>
+            </div>
+            <div id="div-sign-in-or-up">
+                <button type="submit" value="로그인" class="submit-btn" onclick="user_login()" style="cursor:pointer">로그인</button>
+                <button type="submit" value="회원가입" class="signup-btn" onclick="window.location.href = 'signup.html'" style="cursor:pointer">회원가입</button>
+            </div>
         </div>
     </div>
 </body>
