@@ -4,15 +4,60 @@
     <meta charset="UTF-8">
     <title>로그인 페이지</title>
     <link rel="stylesheet" href="/static/css/index.css" type="text/css">
+
+    <script>
+        function tosignup() {
+            window.location.href = 'signup.html'
+        }
+        function sign_in() {
+            let username = $("#input-username").val()
+            let password = $("#input-password").val()
+
+            if (username == "") {
+                $("#help-id-login").text("아이디를 입력해주세요.")
+                $("#input-username").focus()
+                return;
+            } else {
+                $("#help-id-login").text("")
+            }
+
+            if (password == "") {
+                $("#help-password-login").text("비밀번호를 입력해주세요.")
+                $("#input-password").focus()
+                return;
+            } else {
+                $("#help-password-login").text("")
+            }
+            $.ajax({
+                type: "POST",
+                url: "/sign_in",
+                data: {
+                    username_give: username,
+                    password_give: password
+                },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        $.cookie('mytoken', response['token'], {path: '/'});
+                        window.location.replace("/")
+                    } else {
+                        alert(response['msg'])
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body>
-    <div class="login-form">
-        <form>
-            <p>ID</p><input type="text" name="id" class="text-field" placeholder="아이디">
-            <p>PW</p><input type="password" name="password" class="text-field" placeholder="비밀번호">
-            <button type="submit" value="로그인" class="submit-btn">로그인</button>
-            <button type="submit" value="회원가입" class="signup-btn">회원가입</button>
-        </form>
+    <div class="container">
+        <div class="login-box" style="max-width: 480px;margin:auto">
+            <div class="id-box"></div>
+            <input id="input-username" type=text" class="input" placeholder="아이디">
+            <p id="help-id-login"></p>
+            <input id="input-password" class="input" placeholder="비밀번호">
+            <p id="help-password-login"></p>
+            <button type="submit" value="로그인" class="submit-btn" onclick="sign_in()">로그인</button>
+            <button type="submit" value="회원가입" class="signup-btn" onclick="tosignup()">회원가입</button>
+        </div>
     </div>
 </body>
 </html>
