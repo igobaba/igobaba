@@ -46,6 +46,20 @@
     display: none;
 }
 
+:root[color-theme='light'] {
+    --background: #fff;
+    --dark-background: #fdfdfd;
+    --color: #000;
+    --warning:rgb(255, 0, 0);
+}
+
+:root[color-theme='dark'] {
+    --background: #1e1e1e;
+    --dark-background: #1b1b1b;
+    --color: #fff;
+    --warning:rgb(255, 0, 0);
+}
+
 .flex-column-center {
     display: flex;
     flex-direction: column;
@@ -70,6 +84,9 @@
 .wrap-container {
     width: 100vw;
     height: 100vh;
+
+    background-color: var(--background);
+    color: var(--color);
 }
 
 .main-container {

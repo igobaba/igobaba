@@ -109,10 +109,12 @@ def api_register():
     return jsonify({'msg': 'success'})
 
 
+# ID 중복확인
 @app.route('/sign_up/check_dup', methods=['POST'])
 def check_dup():
-    # ID 중복확인
-    return jsonify({'result': 'success'})
+    userid_receive = request.form['userId_give']
+    exists = bool(db.users.find_one({"id": userid_receive}))
+    return jsonify({'result': 'success', 'exists': exists})
 
 
 # 게시물 작성

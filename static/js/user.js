@@ -1,3 +1,7 @@
+let css_color = getComputedStyle(document.documentElement).getPropertyValue("--color");
+let css_warning = getComputedStyle(document.documentElement).getPropertyValue("--warning");
+let valid_error = 0;
+
 //회원가입
 function user_register() {
     let userId = $('#userId').val();
@@ -5,7 +9,12 @@ function user_register() {
     let userBirth = $('#userBirth').val();
     let userNickname = $('#userNickName').val();
 
-    // 추후 유효성 검사 추가해야함
+    if ($('#help-id').css('color') === css_warning ||
+        $('#help-pw').css('color') === css_warning ||
+        $('#help-checkBirth').css('color') === css_warning ||
+        $('#help-checkNickname').css('color') === css_warning) {
+        return;
+    }
 
     $.ajax({
         type: "POST",
@@ -23,11 +32,97 @@ function user_register() {
     })
 }
 
+// 정규 표현식
+function is_id(id) {
+    let idpattern = /^[A-za-z0-9]{4,12}$/;
+    return idpattern.test(id);
+}
+function is_pw(pw) {
+    let pwpattern = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
+    return pwpattern.test(pw);
+}
+
+// 아이디 중복 확인
+function checkId() {
+    let userId = $('#userId').val()
+    if (userId === "") {
+        $('#help-id').text('아이디를 입력해주세요').css('color', css_warning)
+        return
+    } else if (!is_id(userId)) {
+        $('#help-id').text('4-12자 이내 대문자, 소문자 영어와 숫자만 가능').css('color', css_warning)
+        return
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/sign_up/check_dup",
+        data: {
+            userId_give: userId
+        },
+        success: function (response) {
+            if (response["exists"]) {
+                $("#help-id").text("이미 존재하는 아이디입니다.").css('color', css_warning)
+
+            } else {
+                $("#help-id").text("사용할 수 있는 아이디입니다.").css('color', css_color)
+            }
+        }
+    });
+}
+
+// 비밀번호 정규표현식
+function checkPw() {
+    let userPw = $('#userPw').val();
+    if (userPw === "") {
+        $("#help-pw").text("비밀번호를 입력해주세요").css('color', css_warning)
+    } else if (!is_pw(userPw)) {
+        $("#help-pw").text("8-20자 내외 영문과 숫자 필수 포함, 특수문자(!@#$%^&*) 사용가능").css('color', css_warning)
+    } else {
+        $("#help-pw").text("사용할 수 있는 비밀번호입니다.").css('color', css_color)
+    }
+}
+
+// 비밀번호 일치확인
+function checkPwC() {
+    let userPw = $('#userPw').val();
+    let checkPw = $('#userPwC').val();
+    if (checkPw === "") {
+        $("#help-pw").text("비밀번호를 입력해주세요.").css('color', css_warning)
+        $('#register_btn').attr('disabled', true)
+    } else if (checkPw !== userPw) {
+        $("#help-pw").text("비밀번호가 일치하지 않습니다.").css('color', css_warning)
+        $('#register_btn').attr('disabled', true)
+    } else {
+        $("#help-pw").text("비밀번호가 일치합니다.").css('color', css_color)
+    }
+}
+
+// 생일 확인
+function checkBirth() {
+    let userBirth = $('#userBirth').val();
+    if (userBirth === "") {
+        $('#help-checkBirth').text('생년월일을 입력해주세요.').css('color', css_warning)
+        $('#register_btn').attr('disabled', true)
+    }else {
+        $('#help-checkBirth').text('').css('color', css_color)
+    }
+}
+
+// 닉네임 확인
+function checkNickName() {
+    let userNickname = $('#userNickName').val();
+    if (userNickname === "") {
+        $('#help-checkNickname').text('닉네임을 입력해주세요.').css('color', css_warning)
+        $('#register_btn').attr('disabled', true)
+    }else {
+        $('#help-checkNickname').text('').css('color', css_color)
+    }
+}
+
 //로그인
 function user_login() {
     let userId = $('#userId').val();
     let userPw = $('#userPw').val();
-    // 추후 유효성 검사 추가해야함
 
     $.ajax({
         type: "POST",
@@ -77,7 +172,7 @@ function user_post() {
 // 코멘트 등록
 function user_comment(post_id) {
     let comment_id = post_id + 'comment'
-    let comment = $('#'+comment_id).val()
+    let comment = $('#' + comment_id).val()
     let today = new Date().toISOString()
     $.ajax({
         type: "POST",
