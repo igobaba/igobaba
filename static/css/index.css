@@ -95,6 +95,14 @@
     align-items: center;
 }
 
+.is-danger {
+    color: orangered;
+}
+
+.is-safe {
+    color: limegreen;
+}
+
 .wrap .sign-up {
     display: flex;
     flex-wrap: wrap;
@@ -138,8 +146,8 @@
     border-style: none;
 }
 
-.wrap .sign-up span {
-    font-size: 0.8rem;
+span {
+    font-size: 0.7rem;
     margin-bottom: 5px;
 }
 

@@ -1,100 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" color-theme="light">
 <head>
     <meta charset="UTF-8">
-    <title>메인</title>
+    <title>{{ user_info.nickname }} 님 환영합니다!람쥐!</title>
 
+    <!--    css -->
     <link rel="stylesheet" href="/static/css/index.css">
+
+    <!--    Jquery -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <!--    js -->
+    <script src="/static/js/user.js"></script>
 </head>
 <body>
-    <div class="flex-column-center main-container">
-        <input id="search" placeholder="게임을 검색해주세요"/>
-        <div class="scroll-container flex-column-center">
-            <div class="post-container flex-row-start">
-                <img style="width: 100px;" src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
-                <div class="flex-column-start post-container-div">
-                    <div>제목입니다람쥐</div>
-                    <div class="flex-row-start">
-                        <div>작성자</div>
-                        <div style="margin-left: 50px;">2022-03-07</div>
-                    </div>
-                    <a href="https://www.youtube.com/watch?v=r4MTXwcXHHc">https://www.youtube.com/watch?v=r4MTXwcXHHc</a>
+<div class="flex-column-center main-container">
+    <input id="search" placeholder="게임을 검색해주세요" onblur="test()"/>
+    <div class="scroll-container flex-column-center">
+        <div class="post-container flex-row-start">
+            <img style="width: 100px;"
+                 src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
+            <div class="flex-column-start post-container-div">
+                <div>제목입니다람쥐</div>
+                <div class="flex-row-start">
+                    <div>작성자</div>
+                    <div style="margin-left: 50px;">2022-03-07</div>
                 </div>
-                <div class="good-btn">♡</div>
+                <a href="https://www.youtube.com/watch?v=r4MTXwcXHHc">https://www.youtube.com/watch?v=r4MTXwcXHHc</a>
             </div>
-            <div class="post-container flex-row-start">
-                <img style="width: 100px;" src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
-                <div class="flex-column-start post-container-div">
-                    <div>제목입니다람쥐</div>
-                    <div class="flex-row-start">
-                        <div>작성자</div>
-                        <div style="margin-left: 50px;">2022-03-07</div>
-                    </div>
-                    <a href="https://www.youtube.com/">https://www.youtube.com/</a>
+            <div class="good-btn">♡</div>
+        </div>
+        <div class="post-container flex-row-start">
+            <img style="width: 100px;"
+                 src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
+            <div class="flex-column-start post-container-div">
+                <div>제목입니다람쥐</div>
+                <div class="flex-row-start">
+                    <div>작성자</div>
+                    <div style="margin-left: 50px;">2022-03-07</div>
                 </div>
-                <div class="good-btn">♡</div>
+                <a href="https://www.youtube.com/">https://www.youtube.com/</a>
             </div>
-            <div class="post-container flex-row-start">
-                <img style="width: 100px;" src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
-                <div class="flex-column-start post-container-div">
-                    <div>제목입니다람쥐</div>
-                    <div class="flex-row-start">
-                        <div>작성자</div>
-                        <div style="margin-left: 50px;">2022-03-07</div>
-                    </div>
-                    <a href="https://www.youtube.com/">https://www.youtube.com/</a>
+            <div class="good-btn">♡</div>
+        </div>
+        <div class="post-container flex-row-start">
+            <img style="width: 100px;"
+                 src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
+            <div class="flex-column-start post-container-div">
+                <div>제목입니다람쥐</div>
+                <div class="flex-row-start">
+                    <div>작성자</div>
+                    <div style="margin-left: 50px;">2022-03-07</div>
                 </div>
-                <div class="good-btn">♡</div>
+                <a href="https://www.youtube.com/">https://www.youtube.com/</a>
             </div>
-            <div class="post-container flex-row-start">
-                <img style="width: 100px;" src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
-                <div class="flex-column-start post-container-div">
-                    <div>제목입니다람쥐</div>
-                    <div class="flex-row-start">
-                        <div>작성자</div>
-                        <div style="margin-left: 50px;">2022-03-07</div>
-                    </div>
-                    <a href="https://www.youtube.com/">https://www.youtube.com/</a>
+            <div class="good-btn">♡</div>
+        </div>
+        <div class="post-container flex-row-start">
+            <img style="width: 100px;"
+                 src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
+            <div class="flex-column-start post-container-div">
+                <div>제목입니다람쥐</div>
+                <div class="flex-row-start">
+                    <div>작성자</div>
+                    <div style="margin-left: 50px;">2022-03-07</div>
                 </div>
-                <div class="good-btn">♡</div>
+                <a href="https://www.youtube.com/">https://www.youtube.com/</a>
             </div>
-            <div class="post-container flex-row-start">
-                <img style="width: 100px;" src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
-                <div class="flex-column-start post-container-div">
-                    <div>제목입니다람쥐</div>
-                    <div class="flex-row-start">
-                        <div>작성자</div>
-                        <div style="margin-left: 50px;">2022-03-07</div>
-                    </div>
-                    <a href="https://www.youtube.com/">https://www.youtube.com/</a>
+            <div class="good-btn">♡</div>
+        </div>
+        <div class="post-container flex-row-start">
+            <img style="width: 100px;"
+                 src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
+            <div class="flex-column-start post-container-div">
+                <div>제목입니다람쥐</div>
+                <div class="flex-row-start">
+                    <div>작성자</div>
+                    <div style="margin-left: 50px;">2022-03-07</div>
                 </div>
-                <div class="good-btn">♡</div>
+                <a href="https://www.youtube.com/">https://www.youtube.com/</a>
             </div>
-            <div class="post-container flex-row-start">
-                <img style="width: 100px;" src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
-                <div class="flex-column-start post-container-div">
-                    <div>제목입니다람쥐</div>
-                    <div class="flex-row-start">
-                        <div>작성자</div>
-                        <div style="margin-left: 50px;">2022-03-07</div>
-                    </div>
-                    <a href="https://www.youtube.com/">https://www.youtube.com/</a>
+            <div class="good-btn">♡</div>
+        </div>
+        <div class="post-container flex-row-start">
+            <img style="width: 100px;"
+                 src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
+            <div class="flex-column-start post-container-div">
+                <div>제목입니다람쥐</div>
+                <div class="flex-row-start">
+                    <div>작성자</div>
+                    <div style="margin-left: 50px;">2022-03-07</div>
                 </div>
-                <div class="good-btn">♡</div>
+                <a href="https://www.youtube.com/">https://www.youtube.com/</a>
             </div>
-            <div class="post-container flex-row-start">
-                <img style="width: 100px;" src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
-                <div class="flex-column-start post-container-div">
-                    <div>제목입니다람쥐</div>
-                    <div class="flex-row-start">
-                        <div>작성자</div>
-                        <div style="margin-left: 50px;">2022-03-07</div>
-                    </div>
-                    <a href="https://www.youtube.com/">https://www.youtube.com/</a>
+            <div class="good-btn">♡</div>
+        </div>
+        <div class="post-container flex-row-start">
+            <img style="width: 100px;"
+                 src="https://tistory4.daumcdn.net/tistory/3830649/attach/1829f8675826466aa7cda4bbcc66ef2f" alt="썸네일">
+            <div class="flex-column-start post-container-div">
+                <div>제목입니다람쥐</div>
+                <div class="flex-row-start">
+                    <div>작성자</div>
+                    <div style="margin-left: 50px;">2022-03-07</div>
                 </div>
-                <div class="good-btn">♡</div>
+                <a href="https://www.youtube.com/">https://www.youtube.com/</a>
             </div>
+            <div class="good-btn">♡</div>
         </div>
     </div>
+    <button class="positive-btn" onclick="$('#post_input').toggle()">나도 공유하기!</button>
+    <div id="post_input" style="display: none">
+        <div>
+            <label for="post_url">영상url</label>
+            <input id="post_url" type="text" placeholder="공유하실 영상의 url을 입력해주세요">
+        </div>
+        <div>
+            <label for="post_title">제목</label>
+            <input id="post_title" type="text" placeholder="제목을 입력해주세요">
+        </div>
+        <div>
+            <label for="post_tag">제목</label>
+            <input id="post_tag" type="text" placeholder="#로스트아크#메이플스토리#아무튼게임이름">
+        </div>
+        <button onclick="posting()">공유하기</button>
+    </div>
+</div>
+
 </body>
 </html>
