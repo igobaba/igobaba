@@ -114,14 +114,33 @@
     margin-bottom: 30px;
 }
 
-.wrap .sign-up > input {
-    margin-bottom: 20px;
-    width: 200px;
-    height: 40px;
+.wrap .sign-up .check-id > input {
+    margin-bottom: 5px;
+    width: 180px;
+    height: 35px;
     padding-left: 10px;
     box-sizing: border-box;
     border-radius: 5px;
     border-style: none;
+}
+
+.wrap .sign-up .check-id > button {
+    padding: 8px 10px;
+}
+
+.wrap .sign-up > input {
+    margin-bottom: 5px;
+    width: 235px;
+    height: 35px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.wrap .sign-up span {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
 }
 
 .wrap .sign-up button {
