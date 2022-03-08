@@ -11,14 +11,14 @@
     <!--    CSS -->
     <link rel="stylesheet" href="/static/css/index.css">
     <!--    Jquery -->
-    <script src="/static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--   Script-->
     <script src="/static/js/user.js"></script>
 
 </head>
 <body>
 
-<div class="main-container flex-column-center">
+<div class="wrap-container flex-column-center">
     <div>
         <h1>회원가입</h1>
         <div>
@@ -41,8 +41,7 @@
             <label for="userNickName">닉네임</label>
             <input id="userNickName" type="text" placeholder="닉네임">
         </div>
-        <button>로그인</button>
-        <button onclick="window.location.href = '/signup'">회원가입</button>
+        <button onclick="user_register()">회원가입</button>
     </div>
 </div>
 

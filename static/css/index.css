@@ -1,3 +1,41 @@
+/*body {*/
+/*  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);*/
+/*  background-size: 400% 400%;*/
+/*  animation: gradient 15s ease infinite;*/
+/*  height: 100vh;*/
+/*}*/
+/*!*test123*!*/
+/*@keyframes gradient {*/
+/*  0% {*/
+/*    background-position: 0% 50%;*/
+/*  }*/
+/*  50% {*/
+/*    background-position: 100% 50%;*/
+/*  }*/
+/*  100% {*/
+/*    background-position: 0% 50%;*/
+/*  }*/
+/*}*/
+
+/*.background {*/
+/*  background-color: rgba(255, 255, 255, 0.4);*/
+
+/*  animation: fadein 1.25s;*/
+/*  -moz-animation: fadein 1.25s; !* Firefox *!*/
+/*  -webkit-animation: fadein 1.25s; !* Safari and Chrome *!*/
+/*  -o-animation: fadein 1.25s; !* Opera *!*/
+/*}*/
+
+/*@keyframes fadein {*/
+/*  from {*/
+/*    opacity: 0;*/
+/*  }*/
+/*  to {*/
+/*    opacity: 1;*/
+/*  }*/
+/*}*/
+
+
 * {
     padding: 0;
     margin: 0;
@@ -29,15 +67,15 @@
     align-items: center;
 }
 
-.main-container {
+.wrap-container {
     width: 100vw;
     height: 100vh;
 }
 
-.scroll-container {
-    max-width: 800px;
+.main-container {
+    max-width: 1000px;
     width: 100%;
-    height: 600px;
+    height: 650px;
     overflow-y: scroll;
 
     justify-content: start!important;
@@ -45,8 +83,21 @@
     box-shadow: 0 0 4px gray;
 }
 
+.comment-container {
+    width: 100%;
+    height: 300px;
+
+    justify-content: start!important;
+
+    display: none;
+}
+
+.comment {
+    margin: 20px 0 20px 20px;
+}
+
 .post-container {
-    max-width: 600px;
+    max-width: 700px;
     width: 80%;
 
     position: relative;
@@ -56,14 +107,24 @@
     box-shadow: 0 0 4px gray;
 }
 
-.post-container:hover {
+.post-container > div:nth-child(1) {
     cursor: pointer;
+    width: 100%;
+    box-shadow: 0 0 4px gray;
+}
+
+.scroll-container {
+    overflow-y: scroll;
+}
+
+.post-container:hover {
     transform: scale(1.05);
 }
 
 .post-container-div{
+    width: 100%;
     height: 100px;
-    padding-left: 50px;
+    padding-left: 20px;
 
     justify-content: space-around!important;
 }
@@ -79,11 +140,18 @@
     outline: none;
 }
 
-.good-btn {
-    position: absolute;
-    right: 10px;
-    font-size: 32px;
+.heart-btn {
+    width: 50px;
 
     cursor: pointer;
     user-select: none;
+    transition: 0.2s;
+}
+
+.heart-btn:hover {
+    transform: scale(1.1);
+}
+
+.heart-cnt {
+
 }
