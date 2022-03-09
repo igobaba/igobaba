@@ -1,6 +1,5 @@
 let css_color = getComputedStyle(document.documentElement).getPropertyValue("--color");
 let css_warning = getComputedStyle(document.documentElement).getPropertyValue("--warning");
-let valid_error = 0;
 
 //회원가입
 function user_register() {
@@ -10,7 +9,6 @@ function user_register() {
     let userNickname = $('#userNickName').val();
 
     if(checkId() === "false"){
-        console.log(checkId())
         return
     }
 
@@ -232,19 +230,18 @@ function get_post() {
 
             let posts = response['result'];
             for (let post of posts) {
-                console.log(post)
                 let temp_html = `
                 <div class="post-container flex-column-start">
                     <div class="flex-row-start" onclick="$('#${post._id}').toggle()">
                         <img alt="썸네일" style="width: 170px;"
-                             src="${post.image}">
+                             src="${post.image}"
+                             onclick="window.open('${post.url}');">
                         <div class="post-container-div flex-column-start">
                             <div>${post.title}</div>
                             <div class="flex-row-start">
-                                <div>${post.writer}</div>
+                                <div>작성자: ${post.writer}</div>
                                 <div style="margin-left: 50px;">${post.date}</div>
                             </div>
-                            <a href="${post.url}" onclick="event.stopPropagation()">${post.url}</a>
                         </div>
                         <div id="${post._id}good" class="flex-column-center" style="margin-right: 20px">
                             <img alt="좋아요"
@@ -261,7 +258,7 @@ function get_post() {
                 for (let comment of post['comments']) {
                     temp_html += `
                             <div class="comment">
-                                <span>${comment.writer}</span>
+                                <span>${comment.writer} : </span>
                                 <span>${comment.comment}</span>
                                 <span>${comment.date}</span>
                             </div>
@@ -269,10 +266,10 @@ function get_post() {
                 }
                 temp_html += `
                         </div>
-                        <div style="bottom: 0; position: absolute">
+                        <div class="comment-div flex-row-start">
                             <label for="${post._id}comment"></label>
-                            <input id="${post._id}comment" type="text" placeholder="댓글을 입력해주세요" onclick="event.stopPropagation()"
-                                   onblur="user_comment('${post._id}');">
+                            <input id="${post._id}comment" type="text" placeholder="댓글을 입력해주세요" onclick="event.stopPropagation()">
+                            <button onclick="user_comment('${post._id}')">댓글쓰기</button>
                         </div>
                     </div>
                 </div>
@@ -282,4 +279,9 @@ function get_post() {
             }
         }
     })
+}
+
+function logout() {
+    $.removeCookie('mytoken');
+    window.location.href = '/login';
 }

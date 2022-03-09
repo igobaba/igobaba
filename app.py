@@ -239,8 +239,8 @@ def get_posts():
                     if payload['_id'] in p['like']:
                         p['likeMe'] = True
                     post_list.append(p)
-
-        return jsonify({"result": post_list})
+        sorted_post = sorted(post_list, key=lambda x: (x['date']), reverse=True)
+        return jsonify({"result": sorted_post})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 

@@ -6,8 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
     <title>이고바바 로그인</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Poor+Story&display=swap" rel="stylesheet">
 
+    <!--    cute font-->
+    <link href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap" rel="stylesheet">
     <!--    CSS -->
     <link rel="stylesheet" href="/static/css/index.css">
     <!--    Jquery -->
@@ -26,45 +27,48 @@
 <div class="wrap-container flex-column-center login-container">
     <div class="card">
         <div class="wrap">
-            <div class="front">
-                <div>
+            <div class="front flex-column-center">
+                <div class="title">로 그 인</div>
+                <div class="input-box">
+                    <input id="login_userId" type="text" placeholder=" ">
                     <label for="login_userId">아이디</label>
-                    <input id="login_userId" type="text" placeholder="아이디">
                 </div>
-                <div>
+                <div class="input-box">
+                    <input id="login_userPw" type="password" placeholder=" ">
                     <label for="login_userPw">비밀번호</label>
-                    <input id="login_userPw" type="password" placeholder="비밀번호">
                 </div>
-                <button onclick="user_login()">로그인</button>
-                <button onclick="$('.wrap').css('transform', 'rotateY(180deg)')">회원가입</button>
+                <button onclick="user_login()">로 그 인</button>
+                <div class="div-button" onclick="$('.wrap').css('transform', 'rotateY(180deg)')">아직 회원이 아니세요?</div>
             </div>
-            <div class="back">
-                <h1>회원가입</h1>
-                <div>
+            <div class="back flex-column-center">
+                <div class="title">회 원 가 입</div>
+                <div class="input-box">
+                    <input id="userId" type="text" placeholder=" " onblur="checkId()">
                     <label for="userId">아이디</label>
-                    <input id="userId" type="text" placeholder="아이디" onblur="checkId()">
                 </div>
                 <span id="help-id"></span>
-                <div>
+                <div class="input-box">
+                    <input id="userPw" type="password" placeholder=" " onblur="checkPw()">
                     <label for="userPw">비밀번호</label>
-                    <input id="userPw" type="password" placeholder="비밀번호" onblur="checkPw()">
                 </div>
-                <div>
+                <span></span>
+                <div class="input-box">
+                    <input id="userPwC" type="password" placeholder=" " onblur="checkPwC()">
                     <label for="userPwC">비밀번호확인</label>
-                    <input id="userPwC" type="password" placeholder="비밀번호확인" onblur="checkPwC()">
                 </div>
                 <span id="help-pw"></span>
-                <div>
+                <div class="input-box">
+                    <input id="userBirth" type="text" placeholder=" " onblur="checkBirth()">
                     <label for="userBirth">출생연도</label>
-                    <input id="userBirth" type="text" placeholder="출생연도" onblur="checkBirth()">
                 </div>
                 <span id="help-checkBirth"></span>
-                <div>
+                <div class="input-box">
+                    <input id="userNickName" type="text" placeholder=" " onblur="checkNickName()">
                     <label for="userNickName">닉네임</label>
-                    <input id="userNickName" type="text" placeholder="닉네임" onblur="checkNickName()">
                 </div>
                 <span id="help-checkNickname"></span>
                 <button onclick="user_register()" id="register_btn">회원가입</button>
+                <div class="div-button" onclick="$('.wrap').css('transform', 'rotateY(0deg)')">이미 회원이세요?</div>
             </div>
         </div>
     </div>

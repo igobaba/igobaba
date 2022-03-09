@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" color-theme="light">
+<html lang="en" color-theme="dark">
 <head>
     <meta charset="UTF-8">
     <title>{{ user_info.nickname }} 님 환영합니다!람쥐!</title>
 
     <!--    css -->
     <link rel="stylesheet" href="/static/css/index.css">
-
+    <!--    cute font-->
+    <link href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap" rel="stylesheet">
     <!--    Jquery -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
@@ -15,29 +16,33 @@
     <script src="/static/js/user.js"></script>
 </head>
 <body>
-<div class="flex-column-center wrap-container">
-    <input id="search" placeholder="게임을 검색해주세요" onblur="get_post()"/>
+<div class="flex-column-center wrap-container login-container">
+    <img alt="이고바바로고" src="/static/img/igobaba_logo.png" class="logo"/>
+    <div class="input-box search-box">
+        <input id="search" placeholder=" "/>
+        <label for="search">게임을 검색해주세요</label>
+    </div>
     <div class="main-container flex-column-center scroll-container">
         {% for post in posts %}
             <div class="post-container flex-column-start">
                 <div class="flex-row-start" onclick="$('#{{ post._id }}').toggle()">
                     <img alt="썸네일" style="width: 170px;"
-                         src="{{ post.image }}">
+                         src="{{ post.image }}"
+                         onclick="window.open('{{ post.url }}'); event.stopPropagation();">
                     <div class="post-container-div flex-column-start">
                         <div>{{ post.title }}</div>
                         <div class="flex-row-start">
-                            <div>{{ post.writer }}</div>
+                            <div>작성자: {{ post.writer }}</div>
                             <div style="margin-left: 50px;">{{ post.date }}</div>
                         </div>
-                        <a href="{{ post.url }}" onclick="event.stopPropagation()">{{ post.url }}</a>
                     </div>
                     <div id="{{ post._id }}good" class="flex-column-center" style="margin-right: 20px">
                         <img alt="좋아요"
-                             {% if post.likeMe %}
-                                src="/static/img/heart_pink.png"
-                             {% else %}
-                                src="/static/img/heart_white.png"
-                             {% endif %}
+                                {% if post.likeMe %}
+                             src="/static/img/heart_pink.png"
+                                {% else %}
+                             src="/static/img/heart_white.png"
+                                {% endif %}
                              class="heart-btn"
                              onclick="user_post_like('{{ post._id }}');event.stopPropagation();">
                         <span class="heart-cnt">{{ post.like|length }}</span>
@@ -48,39 +53,52 @@
                     <div class="scroll-container">
                         {% for comment in post.comments %}
                             <div class="comment">
-                                <span>{{ comment.writer }}</span>
+                                <span>{{ comment.writer }} : </span>
                                 <span>{{ comment.comment }}</span>
                                 <span>{{ comment.date }}</span>
                             </div>
                         {% endfor %}
                     </div>
 
-                    <div style="bottom: 0; position: absolute">
+                    <div class="comment-div flex-row-start">
+                        <input id="{{ post._id }}comment" type="text" placeholder="댓글을 입력해주세요"
+                               onclick="event.stopPropagation()">
                         <label for="{{ post._id }}comment"></label>
-                        <input id="{{ post._id }}comment" type="text" placeholder="댓글을 입력해주세요" onclick="event.stopPropagation()"
-                               onblur="user_comment('{{ post._id }}');">
+                        <button onclick="user_comment('{{ post._id }}')">댓글쓰기</button>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-    <button class="positive-btn" onclick="$('#post_input').toggle()">나도 공유하기!</button>
-    <div id="post_input" style="display: none">
-        <div>
-            <label for="post_url">영상url</label>
-            <input id="post_url" type="text" placeholder="공유하실 영상의 url을 입력해주세요">
-        </div>
-        <div>
-            <label for="post_title">제목</label>
-            <input id="post_title" type="text" placeholder="제목을 입력해주세요">
-        </div>
-        <div>
-            <label for="post_tag">태그</label>
-            <input id="post_tag" type="text" placeholder="#로스트아크#메이플스토리#아무튼게임이름">
+    <div class="flex-row-center">
+        <button onclick="$('#post_input').toggle()">나도 공유하기!</button>
+        <button class="negative-btn" onclick="logout()">로그아웃</button>
+    </div>
+
+    <div id="post_input" style="display: none; height: 300px" class="post-container flex-row-center">
+        <div class="flex-column-center">
+            <div class="comment-div">
+                <label for="post_url"></label>
+                <input id="post_url" type="text" placeholder="공유하실 영상의 url을 입력해주세요">
+            </div>
+            <div class="comment-div">
+                <label for="post_title"></label>
+                <input id="post_title" type="text" placeholder="제목을 입력해주세요">
+            </div>
+            <div class="comment-div">
+                <label for="post_tag"></label>
+                <input id="post_tag" type="text" placeholder="#로스트아크#메이플스토리#아무튼게임이름">
+            </div>
         </div>
         <button onclick="user_post()">공유하기</button>
     </div>
 </div>
-
+<script>
+    $('#search').keypress(function (e) {
+        if (e.which === 13) {
+            get_post();
+        }
+    });
+</script>
 </body>
 </html>

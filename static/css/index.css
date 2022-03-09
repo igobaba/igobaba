@@ -10,25 +10,26 @@
     }
 }
 
+
 .login-container {
-    background: linear-gradient(-45deg, #ffc500, #c21500, #FBD3E9, #BB377D);
-    background-size: 400% 400%;
-    animation: gradient 12s ease infinite;
-    -moz-animation: gradient 12s ease infinite; /* Firefox */
-    -webkit-animation: gradient 12s  ease infinite; /* Safari and Chrome */
-    -o-animation: gradient 12s ease infinite; /* Opera */
+    background: linear-gradient(-45deg, #E7E9BB, #403B4A, #16222A, #3A6073);
+    background-size: 200% 200%;
+    animation: gradient 15s ease infinite;
+    -moz-animation: gradient 15s ease infinite; /* Firefox */
+    -webkit-animation: gradient 15s ease infinite; /* Safari and Chrome */
+    -o-animation: gradient 15s ease infinite; /* Opera */
 }
 
 .card, .wrap {
     position: relative;
-    width: 300px;
-    height: 500px;
+    width: 400px;
+    height: 600px;
 
-    perspective: 800px;
+    perspective: 1000px;
 }
 
 .wrap {
-    transition: 0.8s;
+    transition: 0.5s;
     transform-style: preserve-3d;
 }
 
@@ -40,20 +41,110 @@
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     background-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 6px 0 gray;
+}
+
+.front > * {
+    margin: 20px 0;
 }
 
 .front {
     z-index: 1;
 }
 
+.back > * {
+    margin: 5px 0;
+}
+
 .back {
     transform: rotateY(180deg)
 }
 
-/*.card:hover .wrap {*/
-/*    transform: rotateY(180deg);*/
-/*}*/
+.back span {
+    font-size: 20px;
+}
+
+.input-box {
+    position: relative;
+    width: 200px;
+    height: 40px;
+}
+
+.input-box input, .comment-div input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid white;
+    background-color: transparent;
+    color: white;
+    font-size: 24px;
+}
+
+.input-box label {
+    position: absolute;
+    left: 0;
+    top: 0px;
+    color: white;
+    transition: 0.2s;
+    user-select: none;
+    font-size: 24px;
+}
+
+.input-box input:focus + label, input:not(:placeholder-shown) + label {
+    transform: translateY(-20px);
+    opacity: 0.5;
+    font-size: 18px;
+}
+
+.input-box input:focus {
+    border-bottom: 2px solid white;
+}
+
+/* input에 글을 입력하고 포커스가 지나간 상태에서 제어하려면 valid 선택자를 써야한다. */
+/* 포커스 될 때 label span(name)이 위로 올라감 */
+.input-box input:focus + label::after,
+.input-box input:valid + label::after {
+    width: 100%;
+    transform: translateX(0);
+}
+
+.title {
+    font-size: 40px;
+    font-weight: bold;
+
+    user-select: none;
+}
+
+button {
+    border: none;
+    background-color: #16222A;
+    color: white;
+    width: 200px;
+    height: 40px;
+    font-size: 26px;
+    font-weight: bold;
+    transition: 0.05s;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(0.95);
+    opacity: 1;
+}
+
+.div-button {
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.6;
+    font-size: 22px;
+}
+.div-button:hover {
+    opacity: 1;
+    font-weight: bold;
+}
+
+/* 포커스 될 때 파란색 가로줄이 생김 */
 
 /*===================================================================================*/
 
@@ -61,6 +152,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Cute Font', cursive;
 }
 
 ::-webkit-scrollbar {
@@ -71,14 +163,14 @@
     --background: #fff;
     --dark-background: #fdfdfd;
     --color: #000;
-    --warning: rgb(255, 0, 0);
+    --warning: rgb(203, 45, 62);
 }
 
 :root[color-theme='dark'] {
-    --background: #1e1e1e;
-    --dark-background: #1b1b1b;
+    --background: #242424;
+    --dark-background: #242424;
     --color: #fff;
-    --warning: rgb(255, 0, 0);
+    --warning: rgb(203, 45, 62);
 }
 
 .flex-column-center {
@@ -102,6 +194,13 @@
     align-items: center;
 }
 
+.flex-row-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .wrap-container {
     width: 100vw;
     height: 100vh;
@@ -113,12 +212,10 @@
 .main-container {
     max-width: 1000px;
     width: 100%;
-    height: 650px;
+    max-height: 650px!important;
+    height: 100%!important;
+    margin: 30px 0;
     overflow-y: scroll;
-
-    justify-content: start !important;
-
-    box-shadow: 0 0 4px gray;
 }
 
 .comment-container {
@@ -132,6 +229,12 @@
 
 .comment {
     margin: 20px 0 20px 20px;
+    font-size: 28px;
+}
+
+.comment > span:last-child {
+    font-size: 20px;
+    opacity: 0.5;
 }
 
 .post-container {
@@ -142,17 +245,20 @@
     margin: 20px 0;
 
     transition: 0.05s;
-    box-shadow: 0 0 4px gray;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
 }
 
 .post-container > div:nth-child(1) {
     cursor: pointer;
     width: 100%;
-    box-shadow: 0 0 4px gray;
 }
 
 .scroll-container {
+    max-height: 230px;
+    height: 100%;
     overflow-y: scroll;
+    justify-content: start !important;
 }
 
 .post-container:hover {
@@ -163,19 +269,13 @@
     width: 100%;
     height: 100px;
     padding-left: 20px;
-
+    font-size: 24px;
     justify-content: space-around !important;
 }
 
-#search {
-    max-width: 600px;
-    width: 80%;
-    height: 60px;
-    margin: 30px 0;
-    font-size: 24px;
-    border: none;
-    border-bottom: 1px solid gray;
-    outline: none;
+.search-box {
+    background-color: transparent;
+    width: 600px!important;
 }
 
 .heart-btn {
@@ -191,5 +291,50 @@
 }
 
 .heart-cnt {
-
+    font-size: 24px;
 }
+
+.comment-div {
+    width: 600px;
+    margin: 20px auto 0 auto;
+}
+
+.comment-div button {
+    width: 80px;
+    height: 30px;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.comment-div input::placeholder {
+    color: white;
+}
+
+.logo {
+    width: 180px;
+    margin-bottom: 20px;
+}
+
+.negative-btn {
+    background-color: var(--warning);
+    margin-left: 20px;
+}
+
+#post_input > div {
+    padding-bottom: 20px;
+    width: 500px;
+}
+
+#post_input > div div {
+    width: 450px;
+}
+
+#post_input > button {
+    width: 140px;
+    height: 80px;
+}
+
+/*#post_input > div div > * {*/
+/*    height: 30px;*/
+/*    font-size: 24px;*/
+/*}*/
