@@ -112,7 +112,7 @@ def api_register():
     return jsonify({'msg': 'success'})
 
 
-# ID 중복확인
+# ID 중복확인 #git
 @app.route('/sign_up/check_dup', methods=['POST'])
 def check_dup():
     userid_receive = request.form['userId_give']
