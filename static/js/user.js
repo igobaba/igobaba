@@ -9,11 +9,20 @@ function user_register() {
     let userBirth = $('#userBirth').val();
     let userNickname = $('#userNickName').val();
 
+    if(checkId() === "false"){
+        console.log(checkId())
+        return
+    }
+
     if ($('#help-id').css('color') === css_warning ||
         $('#help-pw').css('color') === css_warning ||
         $('#help-checkBirth').css('color') === css_warning ||
         $('#help-checkNickname').css('color') === css_warning) {
         return;
+    }
+
+    if (userId === "" || userPw === "" || userBirth === "" || userNickname === ""){
+        return
     }
 
     $.ajax({
@@ -26,8 +35,8 @@ function user_register() {
             nickname_give: userNickname
         },
         success: function (response) {
+            $('.wrap').css('transform', 'rotateY(0deg)');
             alert(response['msg'])
-            window.location.href = '/login'
         }
     })
 }
@@ -47,10 +56,10 @@ function checkId() {
     let userId = $('#userId').val()
     if (userId === "") {
         $('#help-id').text('아이디를 입력해주세요').css('color', css_warning)
-        return
+        return "false";
     } else if (!is_id(userId)) {
         $('#help-id').text('4-12자 이내 대문자, 소문자 영어와 숫자만 가능').css('color', css_warning)
-        return
+        return "false";
     }
 
     $.ajax({
@@ -62,9 +71,10 @@ function checkId() {
         success: function (response) {
             if (response["exists"]) {
                 $("#help-id").text("이미 존재하는 아이디입니다.").css('color', css_warning)
-
+                return "false";
             } else {
                 $("#help-id").text("사용할 수 있는 아이디입니다.").css('color', css_color)
+                return "true";
             }
         }
     });
@@ -94,6 +104,7 @@ function checkPwC() {
         $('#register_btn').attr('disabled', true)
     } else {
         $("#help-pw").text("비밀번호가 일치합니다.").css('color', css_color)
+        $('#register_btn').attr('disabled', false)
     }
 }
 
@@ -121,8 +132,8 @@ function checkNickName() {
 
 //로그인
 function user_login() {
-    let userId = $('#userId').val();
-    let userPw = $('#userPw').val();
+    let userId = $('#login_userId').val();
+    let userPw = $('#login_userPw').val();
 
     $.ajax({
         type: "POST",
@@ -172,7 +183,7 @@ function user_post() {
 // 코멘트 등록
 function user_comment(post_id) {
     let comment_id = post_id + 'comment'
-    let comment = $('#' + comment_id).val()
+    let comment = $('#'+comment_id).val()
     let today = new Date().toISOString()
     $.ajax({
         type: "POST",
@@ -218,7 +229,6 @@ function get_post() {
         },
         success: function (response) {
             $('.main-container').empty();
-            console.log(response['result'])
 
             let posts = response['result'];
             for (let post of posts) {

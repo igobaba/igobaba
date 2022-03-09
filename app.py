@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from operator import itemgetter
 import jwt
 import datetime
 import hashlib
@@ -30,9 +31,11 @@ def home():
         for p in posts:
             if payload['_id'] in p['like']:
                 p['likeMe'] = True
-            else :
+            else:
                 p['likeMe'] = False
-        return render_template('index.html', user_info=user_info, posts=posts)
+        sorted_post = sorted(posts, key=lambda x: (x['date']), reverse=True)
+
+        return render_template('index.html', user_info=user_info, posts=sorted_post)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
@@ -165,7 +168,6 @@ def user_comment():
 
         id_recv = request.form["id_give"]
         comment_recv = request.form["comment_give"]
-        print(comment_recv)
         date_recv = request.form["date_give"]
 
         doc = {
@@ -210,6 +212,7 @@ def user_post_like():
         return redirect(url_for("home"))
 
 
+#게시물 검색
 @app.route("/get_posts", methods=['POST'])
 def get_posts():
     token_receive = request.cookies.get('mytoken')
@@ -219,13 +222,23 @@ def get_posts():
         key_recv = request.form['key_give']
         posts = list(db.posts.find())
         post_list = []
-        for p in posts:
-            p['likeMe'] = False
-            if key_recv in p['tags']:
+
+        #입력값이 빈 값일 때, 전체 출력
+        if key_recv == "":
+            for p in posts:
+                p['likeMe'] = False
                 p['_id'] = str(p['_id'])
                 if payload['_id'] in p['like']:
                     p['likeMe'] = True
                 post_list.append(p)
+        else:
+            for p in posts:
+                p['likeMe'] = False
+                if key_recv in p['tags']:
+                    p['_id'] = str(p['_id'])
+                    if payload['_id'] in p['like']:
+                        p['likeMe'] = True
+                    post_list.append(p)
 
         return jsonify({"result": post_list})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):

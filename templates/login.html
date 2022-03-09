@@ -23,19 +23,52 @@
 </head>
 <body>
 
-<div class="wrap-container flex-column-center background">
-    <div>
-        <div>
-            <label for="userId">아이디</label>
-            <input id="userId" type="text" placeholder="아이디">
+<div class="wrap-container flex-column-center login-container">
+    <div class="card">
+        <div class="wrap">
+            <div class="front">
+                <div>
+                    <label for="login_userId">아이디</label>
+                    <input id="login_userId" type="text" placeholder="아이디">
+                </div>
+                <div>
+                    <label for="login_userPw">비밀번호</label>
+                    <input id="login_userPw" type="password" placeholder="비밀번호">
+                </div>
+                <button onclick="user_login()">로그인</button>
+                <button onclick="$('.wrap').css('transform', 'rotateY(180deg)')">회원가입</button>
+            </div>
+            <div class="back">
+                <h1>회원가입</h1>
+                <div>
+                    <label for="userId">아이디</label>
+                    <input id="userId" type="text" placeholder="아이디" onblur="checkId()">
+                </div>
+                <span id="help-id"></span>
+                <div>
+                    <label for="userPw">비밀번호</label>
+                    <input id="userPw" type="password" placeholder="비밀번호" onblur="checkPw()">
+                </div>
+                <div>
+                    <label for="userPwC">비밀번호확인</label>
+                    <input id="userPwC" type="password" placeholder="비밀번호확인" onblur="checkPwC()">
+                </div>
+                <span id="help-pw"></span>
+                <div>
+                    <label for="userBirth">출생연도</label>
+                    <input id="userBirth" type="text" placeholder="출생연도" onblur="checkBirth()">
+                </div>
+                <span id="help-checkBirth"></span>
+                <div>
+                    <label for="userNickName">닉네임</label>
+                    <input id="userNickName" type="text" placeholder="닉네임" onblur="checkNickName()">
+                </div>
+                <span id="help-checkNickname"></span>
+                <button onclick="user_register()" id="register_btn">회원가입</button>
+            </div>
         </div>
-        <div>
-            <label for="userPw">비밀번호</label>
-            <input id="userPw" type="password" placeholder="비밀번호">
-        </div>
-        <button onclick="user_login()">로그인</button>
-        <button onclick="window.location.href = '/register'">회원가입</button>
     </div>
+
 </div>
 
 </body>
