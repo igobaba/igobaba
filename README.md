@@ -1,49 +1,71 @@
-프로젝트 소개
-가벼운 식탁
-다이어트 레시피 찾기 힘드셨죠? 쉽고 맛있는 건강레시피 가벼운 식탁과 함께하세요.
+# 프로젝트 소개
 
-가벼운식탁logo
+## 이고바바
 
-http://light-table.shop/
+여러분들이 즐겨보는 영상을 공유해주세요!
 
-1.제작 기간 & 팀원 소개
-2021.11.01~ 2021.11.05
+http://igobaba.shop/
 
-김주란
-서유리
-강원석
-송현정
-2. 시연 연상
-가벼운식탁
+##  1.제작 기간 & 팀원 소개
 
-3. 초안
+2022.03.07 ~ 2022.03.10
+- 권영민
+- 조영민
+- 김동보
 
+## 2. 시연 연상 
 
-4. 사용 기술
-Server: AWS EC2 (Ubuntu 18.04 LTS)
-Framework: Flask (Python)
-Database: MongoDB
-front-end : HTML5, CSS3, Javascript, jquery, bootstrap
-5. 핵심 기능
-로그인/회원가입
+[![이고바바](https://img.youtube.com/vi/96KFZ_nZlzk/0.jpg)](https://youtu.be/96KFZ_nZlzk)
 
-아이디 중복확인 기능
-회원가입시 아이디, 비밀번호 유효성 검사
-메인페이지
+## 3. 초안
 
-카드출력 (필터)
-키워드 클릭 시 카드출력
-상세페이지 이동
-카드 클릭 시 해당 상세페이지 이동
-스크롤 top 버튼
-누르면 페이지 상단으로 이동
-상세페이지
+![](https://blog.kakaocdn.net/dn/biwOAr/btrvnWsVHYw/sfExjk7bwwzFlMCPlbZfz0/img.png)
 
-댓글기능
-로그인한 사용자만 댓글 작성가능
-클릭한 메뉴별 댓글 불러오기
-6. trouble shooting
-웹 스크래핑한 db와 댓글을 저장하는 db가 달라 /detail page에 원하는 댓글을 불러오기 어려운 문제
-쿠키 path 설정 문제
-카드별로 해당하는 상세페이지를 나타낼 때 id값으로 상세정보를 가져오는 방법
-bootstrap의 템플릿을 이용하니 메인페이지 카드의 정렬이 되지 않음
+## 4. 사용 기술
+
+* Server: AWS EC2 (Ubuntu 20.04 LTS)
+* Framework: Flask (Python)
+* Database: MongoDB
+* front-end : HTML5, CSS, Javascript, jquery
+
+## 5. 핵심 기능
+
+* 로그인/회원가입
+  - 아이디 중복확인 기능 및 입력 요소 유효성 검사
+  
+* 메인페이지
+   * 게시물 검색
+     <br>키워드 검색을 통한 게시물 검색
+     
+   * 게시물 등록
+     <br>영상 링크를 포함한 게시물 등록
+     <br>크롤링을 통한 영상 썸네일 자동 등록
+     
+   * 댓글 등록
+     <br>선택한 게시물에 댓글 등록
+     
+   * 페이지 이동
+     <br>썸네일 클릭 시, 해당 영상주소로 이동
+  
+
+## 6. trouble shooting
+
+<details>
+    <summary>
+        jinja2 템플릿을 이용해 첫 렌더링을 진행하다보니 javascript datetime 형식으로 저장된 게시물의 날짜와 python datetime 형식이 달라 이를 원하는 요소로 변환하기에 어려움이 있었다.
+    </summary>
+    <br>
+    <div markcown="1">
+        python에서의 여러 datetime 형식을 바꿔보며 해결 시도를 하였지만, 시간 부족으로 인해 아직 해결하지 못했다. 첫 렌더링 시가 아닌, ajax통신으로 게시물들을 받아오는 경우에는 javascript형식으로만 진행되어 문제가 발생하지 않았다.
+    </div>
+</details>
+
+<details>
+    <summary>
+        게시물 좋아요 데이터가 게시물의 데이터 안에 존재해야하는지, 별도의 데이터로 관리되어야 하는지에 대한 고민이 있었다.
+    </summary>
+    <br>
+    <div markcown="1">
+        멘토님께 이를 문의하여 고민을 덜 수 있었다. 해당 문제 같은 경우에는, 좋아요의 기능이 어떻게 사용되냐에 따라, 데이터베이스의 구조가 달라진다고 하였다. 이 프로젝트에서는 좋아요의 기능으로 별도의 추가 기능이 없기 때문에, 별도의 데이터로 관리하기 보다는, 게시물의 데이터안에 삽입하는 것으로 진행했다.
+    </div>
+</details>
