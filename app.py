@@ -11,7 +11,6 @@ from ignore import db
 from dateutil import parser
 from bs4 import BeautifulSoup
 
-
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
