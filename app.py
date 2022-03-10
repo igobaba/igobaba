@@ -1,6 +1,5 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from operator import itemgetter
 import jwt
 import datetime
 import hashlib
@@ -9,6 +8,7 @@ import requests
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from datetime import datetime, timedelta
 from ignore import db
+from dateutil import parser
 from bs4 import BeautifulSoup
 
 
@@ -21,6 +21,7 @@ ca = certifi.where()
 client = MongoClient(db, tlsCAFile=ca)
 db = client.dbsparta_1week
 
+
 @app.route('/')
 def home():
     token_receive = request.cookies.get('mytoken')
@@ -28,19 +29,45 @@ def home():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"id": payload['id']})
         posts = list(db.posts.find())
-        for p in posts:
+        # 최신순으로 보이기 위해 역순 정렬
+        sorted_post = sorted(posts, key=lambda x: (x['date']), reverse=True)
+
+        for p in sorted_post:
+            # 해당 게시물을 내가 좋아요 했는지
             if payload['_id'] in p['like']:
                 p['likeMe'] = True
             else:
                 p['likeMe'] = False
 
-        sorted_post = sorted(posts, key=lambda x: (x['date']), reverse=True)
+            # 게시물과 댓글이 얼마전에 올라왔는지
+            p['date'] = time2str(p['date'])
+            for c in p['comments']:
+                c['date'] = time2str(c['date'])
 
         return render_template('index.html', user_info=user_info, posts=sorted_post)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
+
+# 날짜 차이를 ~시간, ~일로 계산하는 함수
+def time2str(date):
+    now = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    comp1 = parser.parse(now)
+    comp2 = parser.parse(date)
+    diff = comp1 - comp2
+    diff_time = diff.seconds / 3600
+    diff_min = diff.seconds / 60
+    if diff.days == 0:
+        if diff_time < 1:
+            print(diff_min)
+            result = str(int(diff_min)) + "분 전"
+        else:
+            result = str(int(diff_time)) + "시간 전"
+    else:
+        result = str(diff.days) + "일 전"
+    return result
 
 
 @app.route('/login')
