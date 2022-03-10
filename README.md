@@ -15,7 +15,7 @@ http://igobaba.shop/
 
 ## 2. 시연 연상 
 
-[![이고바바](https://img.youtube.com/vi/96KFZ_nZlzk/0.jpg)](https://youtu.be/96KFZ_nZlzk)
+[![이고바바](https://i9.ytimg.com/vi_webp/qowYcOL0tDw/mqdefault.webp?v=62298a87&sqp=CNiZppEG&rs=AOn4CLCaVDIKnaZBY8wyNlGGEYTvTZpufQ)](https://www.youtube.com/watch?v=qowYcOL0tDw)
 
 ## 3. 초안
 
