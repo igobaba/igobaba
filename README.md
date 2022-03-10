@@ -57,6 +57,7 @@ http://igobaba.shop/
     <br>
     <div markcown="1">
         python에서의 여러 datetime 형식을 바꿔보며 해결 시도를 하였지만, 시간 부족으로 인해 아직 해결하지 못했다. 첫 렌더링 시가 아닌, ajax통신으로 게시물들을 받아오는 경우에는 javascript형식으로만 진행되어 문제가 발생하지 않았다.
+      (2022-03-10:16:44 문제 해결) javascript에서 시간을 저장할 때 new Date().toISOString()을 사용했다. ISO8601은 국제 표준 시간인 UTC를 기준으로 시간을 지정했습니다. 하지만 python datetime에서 제공하는 datetime.now()는 로컬 컴퓨터의 시간을 기준으로 하기 때문에, UTC기준 시간과 다른 대한민국 시간을 주고 있었습니다. 그래서 datetime.utcnow()를 사용해 데이터베이스에 저장되어있는 UTC시간 기준으로 다시 계산을 했습니다. 강의에서 배운 time2str을 참고하여 python에서도 이와 비슷하게 함수를 만들어 사용해 문제를 해결했습니다.
     </div>
 </details>
 
