@@ -33,6 +33,7 @@ def home():
                 p['likeMe'] = True
             else:
                 p['likeMe'] = False
+
         sorted_post = sorted(posts, key=lambda x: (x['date']), reverse=True)
 
         return render_template('index.html', user_info=user_info, posts=sorted_post)
@@ -178,7 +179,7 @@ def user_comment():
         }
 
         db.posts.update_one({'_id': ObjectId(id_recv)}, {'$push': {'comments': doc}})
-        return jsonify({"result": "success", 'msg': '댓글이 등록되었습니다.'})
+        return jsonify({"result": doc, 'msg': '댓글이 등록되었습니다.'})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 
@@ -213,17 +214,19 @@ def user_post_like():
 
 
 #게시물 검색
-@app.route("/get_posts", methods=['POST'])
+@app.route("/search", methods=['GET'])
 def get_posts():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
 
-        key_recv = request.form['key_give']
+        key_recv = request.args['keyword']
         posts = list(db.posts.find())
         post_list = []
 
         #입력값이 빈 값일 때, 전체 출력
+        # 돌이켜보니 이렇게 게시물 전체를 불러와서 가공할 필요가 없었을거 같음...
+        # db에서 불러올 때, keyword와 tag값이 같은 것만 가져왔으면 됐지 않을까...
         if key_recv == "":
             for p in posts:
                 p['likeMe'] = False
@@ -243,8 +246,6 @@ def get_posts():
         return jsonify({"result": sorted_post})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
-
-
 
 
 

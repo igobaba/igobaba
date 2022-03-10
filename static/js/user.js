@@ -33,8 +33,10 @@ function user_register() {
             nickname_give: userNickname
         },
         success: function (response) {
+            if(response['msg'] === "success") {
+                alert("회원가입이 완료되었습니다.")
+            }
             $('.wrap').css('transform', 'rotateY(0deg)');
-            alert(response['msg'])
         }
     })
 }
@@ -181,19 +183,26 @@ function user_post() {
 // 코멘트 등록
 function user_comment(post_id) {
     let comment_id = post_id + 'comment'
-    let comment = $('#'+comment_id).val()
+    let comment = $('#' + comment_id)
     let today = new Date().toISOString()
     $.ajax({
         type: "POST",
         url: "/user/comment",
         data: {
             id_give: post_id,
-            comment_give: comment,
+            comment_give: comment.val(),
             date_give: today
         },
         success: function (response) {
-            alert(response['msg'])
-            window.location.reload()
+            let time = time2str(new Date(response['result']['date']))
+            temp_html = `
+                <div class="comment">
+                    <span>${response['result']['writer']} : </span>
+                    <span>${response['result']['comment']}</span>
+                    <span>${time}</span>
+                </div>`
+            $('#' + post_id + ' > div.scroll-container').append(temp_html)
+            comment.val('')
         }
     })
 }
@@ -220,16 +229,16 @@ function user_post_like(post_id) {
 function get_post() {
     let keyword = $('#search').val();
     $.ajax({
-        type: "POST",
-        url: "/get_posts",
+        type: "GET",
+        url: "/search?keyword=" + keyword,
         data: {
-            key_give: keyword
         },
         success: function (response) {
             $('.main-container').empty();
 
             let posts = response['result'];
             for (let post of posts) {
+                let time = time2str(new Date(post.date))
                 let temp_html = `
                 <div class="post-container flex-column-start">
                     <div class="flex-row-start" onclick="$('#${post._id}').toggle()">
@@ -240,7 +249,7 @@ function get_post() {
                             <div>${post.title}</div>
                             <div class="flex-row-start">
                                 <div>작성자: ${post.writer}</div>
-                                <div style="margin-left: 50px;">${post.date}</div>
+                                <div style="margin-left: 50px;">${time}</div>
                             </div>
                         </div>
                         <div id="${post._id}good" class="flex-column-center" style="margin-right: 20px">
@@ -256,11 +265,12 @@ function get_post() {
                     <div id="${post._id}" class="comment-container flex-column-start">
                         <div class="scroll-container">`
                 for (let comment of post['comments']) {
+                    let time = time2str(new Date(comment.date))
                     temp_html += `
                             <div class="comment">
                                 <span>${comment.writer} : </span>
                                 <span>${comment.comment}</span>
-                                <span>${comment.date}</span>
+                                <span>${time}</span>
                             </div>
                     `
                 }
@@ -281,7 +291,23 @@ function get_post() {
     })
 }
 
+function time2str(date) {
+    let today = new Date()
+    let time = (today - date) / 1000 / 60  // 분
+
+    if (time < 60) {
+        return parseInt(time) + "분 전"
+    }
+    time = time / 60  // 시간
+    if (time < 24) {
+        return parseInt(time) + "시간 전"
+    }
+    time = time / 24
+    return parseInt(time) + "일 전"
+}
+
 function logout() {
     $.removeCookie('mytoken');
+    alert('로그아웃!')
     window.location.href = '/login';
 }
